@@ -1,0 +1,22 @@
+<!-- templates/course_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - Onlearn Platform{% endblock %}
+
+{% block content %}
+<h1>{{ subject.title }}</h1>
+<p>{{ subject.description }}</p>
+
+{% if current_user.is_authenticated %}
+    {% if current_user.role == 'Student' %}
+        <form method="POST" action="{{ url_for('courses.enroll', course_id=course.id) }}">
+            <input type="submit" value="Enroll in Subject">
+        </form>
+    {% endif %}
+{% else %}
+    <p><a href="{{ url_for('auth.login') }}">Log in</a> to enroll in this Subject.</p>
+{% endif %}
+
+<h2>Subject Materials</h2>
+<!-- List of course materials like videos, PDFs, etc. -->
+{% endblock %}

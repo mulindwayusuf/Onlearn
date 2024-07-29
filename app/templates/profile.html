@@ -1,0 +1,16 @@
+<!-- templates/profile.html -->
+{% extends "base.html" %}
+
+{% block title %}Profile - Onlearn Platform{% endblock %}
+
+{% block content %}
+<h1>{{ current_user.username }}'s Profile</h1>
+<p>Email: {{ current_user.email }}</p>
+
+<h2>My Subjects</h2>
+<ul>
+    {% for course in current_user.courses %}
+    <li><a href="{{ url_for('courses.course_detail', course_id=course.id) }}">{{ course.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+<!-- templates/create_course.html -->
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" action="{{ url_for('subjects.create_subject') }}">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title() }}
+    {{ form.description.label }} {{ form.description() }}
+    {{ form.submit() }}
+</form>
+{% endblock %}

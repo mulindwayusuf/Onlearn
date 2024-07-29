@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <h1>Welcome to the Online Learning Platform!</h1>
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.username }}!</p>
+        <p>Your role: {{ current_user.role }}</p>
+    {% else %}
+        <p>Please <a href="{{ url_for('auth.login') }}">login</a> or <a href="{{ url_for('auth.register') }}">register</a>.</p>
+    {% endif %}
+</div>
+
+<h2>Available Subjects</h2>
+<div class="row">
+    {% for subject in subjects %}
+        <div class="col-md-4 course-card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('subjects.subject_detail', subject_id=subject.id) }}">{{ subject.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ subject.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
