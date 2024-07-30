@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from app.forms import RegistrationForm, LoginForm
-from app.models import User, db
+from app.models import User, db, UserRole
+
 
 auth = Blueprint('auth', __name__)
 
@@ -19,7 +20,7 @@ def register():
             flash('Email address already registered', 'danger')
             return redirect(url_for('auth.register'))
         
-        user = User(username=form.username.data, email=form.email.data, role= 'user')
+        user = User(username=form.username.data, email=form.email.data, role=form.role.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

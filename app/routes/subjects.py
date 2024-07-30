@@ -8,16 +8,16 @@ subjects = Blueprint('subjects', __name__)
 @subjects.route('/create_subject', methods=['GET', 'POST'])
 @login_required
 def create_subject():
-    if current_user.role != 'Instructor':
+    if current_user.role != 'ADMIN':
         flash('You are not authorized to create subjects.', 'danger')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.home'))
     form = SubjectForm()
     if form.validate_on_submit():
         subject = Subject(title=form.title.data, description=form.description.data, instructor_id=current_user.id)
         db.session.add(subject)
         db.session.commit()
         flash('Subject created successfully', 'success')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.create_subject'))
     return render_template('create_subject.html', form=form)
 
 @subjects.route('/course/<int:course_id>')

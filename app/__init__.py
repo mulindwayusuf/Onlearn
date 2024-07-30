@@ -18,7 +18,8 @@ def create_app():
     login_manager.init_app(app)
 
     # Import models to ensure they are registered with the app context
-    from app.models import User, Subject
+    from app.models import User, Subject, Topic, Quiz, Question, Assignment, Submission, Badge, Progress
+
 
     @login_manager.user_loader
     def load_user(user_id):
